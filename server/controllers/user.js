@@ -20,17 +20,18 @@ module.exports = class UserController {
       let { email, password } = req.body
       email = email.toLowerCase()
       let data = await User.findOne({ where: { email }})
-      if(!data) throw { msg: "Username/Password error"}
+      if(!data) throw "Username/Password error"
       else {
         let result = Bcrypt.compare(password, data.password)
-        if(!result) throw { msg: "Username/Password error"}
+        if(!result) throw "Username/Password error dari result"
         else {
           let access_token = JWT.create({ id: data.id, email: data.email })
+          console.log(access_token, 'dari result');
           res.status(200).json({ access_token })
         }
       }
     } catch (error) {
-      res.status(404).json(error)
+      next({ msg: error, status: 404})
     }
   }
 

@@ -56,6 +56,7 @@ export default {
       error: false,
       msgSuccess: "",
       msgErr: "",
+      user: ''
     }
   },
   components: {
@@ -121,6 +122,7 @@ export default {
     },
     delTask(id) {
       let token = localStorage.getItem('access_token')
+      console.log(id);
       axios({
         method: 'delete',
         url: '/tasks/' + id,
